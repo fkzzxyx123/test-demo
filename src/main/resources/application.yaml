@@ -1,0 +1,12 @@
+
+spring:
+  datasource:
+    name: test  #数据库名
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true} #url
+    username: ${SPRING_DATASOURCE_USERNAME:root}  #用户名
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}  #密码
+    driver-class-name: com.mysql.cj.jdbc.Driver  #数据库链接驱动
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #配置映射文件
+  type-aliases-package: com.example.test.bean #配置实体类
