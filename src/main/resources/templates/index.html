@@ -2,9 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>hello</title>
+    <style>
+        form,
+        li {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            font-family: 'Open Sans Condensed', sans-serif;
+        }
+
+        form div {
+            margin: 0;
+            width: 100%;
+            padding-bottom: .5rem;
+        }
+    </style>
+    <title>Web storage</title>
 </head>
 <body>
-    你好！初学者，我是SpringBoot的简单启动页面！
+<h2>Web storage</h2>
+
+<p>webstorage学习</p>
+
+<form>
+    <div>
+        <label for="bgcolor">选择背景颜色:</label>
+        <input type="color" id="bgcolor" value="#FF0000">
+    </div>
+    <div>
+        <label for="font">选择字体样式:</label>
+        <select id="font">
+            <option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
+            <option value="'Bitter', serif">Serif</option>
+            <option value="'Monospace'">Monospace</option>
+        </select>
+    </div>
+    <div>
+        <label for="image">选择图片:</label>
+        <select id="image">
+            <option value="images/parrot-icon.png" selected>Parrot</option>
+            <option value="images/avatar-female.jpg">Babe</option>
+            <option value="images/avatar-male.jpg">Dude</option>
+        </select>
+    </div>
+</form>
+
+<img src="images/parrot-icon.png">
+
+<script>
+    var root = document.querySelector('html');
+    var p = document.querySelector('p');
+    var img = document.querySelector('img');
+
+    var bgcolorForm = document.getElementById('bgcolor');
+    var fontForm = document.getElementById('font');
+    var imageForm = document.getElementById('image');
+
+    if (!localStorage.getItem('bgcolor')) {
+        populateStorage();
+    } else {
+        setStyles();
+    }
+
+    function populateStorage() {
+        localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
+        localStorage.setItem('font', document.getElementById('font').value);
+        localStorage.setItem('image', document.getElementById('image').value);
+
+        setStyles();
+    }
+
+    function setStyles() {
+        var currentColor = localStorage.getItem('bgcolor');
+        var currentFont = localStorage.getItem('font');
+        var currentImage = localStorage.getItem('image');
+
+        document.getElementById('bgcolor').value = currentColor;
+        document.getElementById('font').value = currentFont;
+        document.getElementById('image').value = currentImage;
+
+        root.style.backgroundColor = currentColor;
+        p.style.fontFamily = currentFont;
+        img.setAttribute('src', currentImage);
+    }
+
+    bgcolorForm.onchange = populateStorage;
+    fontForm.onchange = populateStorage;
+    imageForm.onchange = populateStorage;
+</script>
 </body>
 </html>
